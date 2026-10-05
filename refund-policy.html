@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy — graphy.com</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', Arial, sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 48px 40px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-header {
+            margin-bottom: 32px;
+            padding-bottom: 26px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .doc-title {
+            margin: 0 0 8px;
+            color: var(--header-color);
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .doc-subtitle { margin: 0; color: var(--text-muted); font-size: 0.95rem; }
+
+        .prompt-list { display: grid; gap: 16px; }
+
+        .prompt-card {
+            padding: 18px 20px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .prompt-label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.035em;
+            text-transform: uppercase;
+        }
+
+        .prompt-row { display: flex; align-items: stretch; gap: 10px; }
+
+        .prompt-input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px 14px;
+            color: var(--text-main);
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font: 400 0.95rem/1.5 var(--font-sans);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+
+        .copy-btn {
+            flex: 0 0 auto;
+            align-self: center;
+            padding: 10px 15px;
+            color: #fff;
+            background: var(--accent);
+            border: 0;
+            border-radius: 6px;
+            font: 500 0.84rem var(--font-sans);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+
+        .doc-footer {
+            margin-top: 38px;
+            padding-top: 18px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .prompt-card { padding: 15px 13px; }
+            .prompt-row { flex-direction: column; }
+            .copy-btn { align-self: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Refund Policy</h1>
+            <p class="doc-subtitle">(for graphy.com)</p>
+        </header>
+
+        <section class="prompt-list" aria-label="Refund policy prompts">
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-1">Prompt#1:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-1" type="text" value="What is the refund policy?" readonly><button class="copy-btn" type="button" data-copy="prompt-1">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-2">Prompt#2:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-2" type="text" value="Since this is a digital product, we do not offer refunds. All sales are final." readonly><button class="copy-btn" type="button" data-copy="prompt-2">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-3">Prompt#3:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-3" type="text" value="For how long can I access the content?" readonly><button class="copy-btn" type="button" data-copy="prompt-3">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-4">Prompt#4:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-4" type="text" value="This is a one-time purchase product and you'll get a lifetime access to it." readonly><button class="copy-btn" type="button" data-copy="prompt-4">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-5">Prompt#5:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-5" type="text" value="রিফান্ড বা টাকা ফেরত দেওয়ার নীতিটি কী?" readonly><button class="copy-btn" type="button" data-copy="prompt-5">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-6">Prompt#6:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-6" type="text" value="এটি যেহেতু একটি ডিজিটাল প্রোডাক্ট (পণ্য), তাই আমরা কোনো রিফান্ড দিই না। সমস্ত বিক্রিই চূড়ান্ত।" readonly><button class="copy-btn" type="button" data-copy="prompt-6">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-7">Prompt#7:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-7" type="text" value="আমি কতদিন ধরে এই কনটেন্ট বা বিষয়বস্তুটি ব্যবহার করতে পারব?" readonly><button class="copy-btn" type="button" data-copy="prompt-7">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-8">Prompt#8:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-8" type="text" value="এটি একটি ওয়ান-টাইম পারচেজ বা এককালীন কেনাকাটার প্রোডাক্ট, এবং আপনি এটিতে আজীবন (লাইফটাইম) অ্যাক্সেস পাবেন।" readonly><button class="copy-btn" type="button" data-copy="prompt-8">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-9">Prompt#9:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-9" type="text" value="रिफ़ंड (पैसे वापसी) की नीति क्या है?" readonly><button class="copy-btn" type="button" data-copy="prompt-9">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-10">Prompt#10:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-10" type="text" value="चूँकि यह एक डिजिटल प्रोडक्ट है, इसलिए हम रिफ़ंड की पेशकश नहीं करते हैं। सभी बिक्री अंतिम हैं।" readonly><button class="copy-btn" type="button" data-copy="prompt-10">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-11">Prompt#11:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-11" type="text" value="मैं इस कंटेंट को कितने समय तक एक्सेस कर सकता हूँ?" readonly><button class="copy-btn" type="button" data-copy="prompt-11">Copy</button></div>
+            </article>
+            <article class="prompt-card">
+                <label class="prompt-label" for="prompt-12">Prompt#12:</label>
+                <div class="prompt-row"><input class="prompt-input" id="prompt-12" type="text" value="यह एक बार की खरीद (वन-टाइम परचेज़) वाला प्रोडक्ट है, और आपको इसमें लाइफटाइम (आजीवन) एक्सेस मिलेगा।" readonly><button class="copy-btn" type="button" data-copy="prompt-12">Copy</button></div>
+            </article>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        document.querySelectorAll('.copy-btn').forEach((button) => {
+            button.addEventListener('click', async () => {
+                const input = document.getElementById(button.dataset.copy);
+                const originalText = button.textContent;
+                try {
+                    await navigator.clipboard.writeText(input.value);
+                    button.textContent = '✓ Copied!';
+                    button.classList.add('copied');
+                    window.setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (error) {
+                    input.focus();
+                    input.select();
+                    document.execCommand('copy');
+                    button.textContent = '✓ Copied!';
+                    button.classList.add('copied');
+                    window.setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
