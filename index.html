@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks | শিব প্রসাদ মুখার্জি </title>
+    <link rel="icon" href="spm.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #204d4f;
+            --secondary: #426a6c;
+            --accent: #739395;
+            --border-clr: #a9c1c2;
+            --light-bg: #dbeeef;
+            --ink: #1e2b2c;
+            --muted: #426a6c;
+            --paper: #ffffff;
+            --page-bg: var(--light-bg);
+            --line: var(--border-clr);
+            --shadow: 0 10px 30px rgba(32, 77, 79, 0.08);
+            --radius: 18px;
+        }
 
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--page-bg);
+            color: var(--ink);
+        }
+
+        .main-card {
+            background-color: var(--paper);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--line);
+        }
+
+        .support-box {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-clr);
+        }
+
+        .accent-text { color: var(--primary); }
+        .muted-text { color: var(--muted); }
+        
+        .custom-bullet {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .btn-circle {
+            width: 25px;
+            height: 25px;
+            background-color: #93b082;
+            color: #09130b;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-circle:hover {
+            transform: translateY(-3px);
+            background-color: white;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--accent);
+        }
+
+        /* Responsive QR Container */
+        .qr-wrapper {
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            max-width: 125px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-2xl w-full main-card p-8 md:p-12">
+
+        <!-- প্রোফাইল সেকশন -->
+        <div class="flex items-center gap-4 mb-10">
+            <div class="relative">
+                <img src="name.jpg" alt="শিব প্রসাদ মুখার্জি " class="w-14 h-14 rounded-full border-2 border-[#a9c1c2] shadow-sm">
+            </div>
+            <div>
+                <h2 class="font-bold text-[#1e2b2c] text-xl leading-tight">শিব প্রসাদ মুখার্জি </h2>
+                <p class="muted-text text-sm">Important Links</p>
+            </div>
+        </div>
+
+        <!-- কন্টেন্ট সেকশন -->
+        <div class="space-y-6">
+
+
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <p class="muted-text font-medium text-lg">Set Message:</p>
+
+            </div>
+
+
+                <ul class="space-y-4 muted-text text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="message-expression-helper.html" target="_blank">message-expression-helper.html</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="prerequisite.html" target="_blank">prerequisite.html</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="my-own-framework.html" target="_blank">my-own-framework.html</a></span>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        <div class="space-y-6">
+
+
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <p class="muted-text font-medium text-lg">Literture:</p>
+            </div>
+
+
+                <ul class="space-y-4 muted-text text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="show-not-tell.html" target="_blank">show-not-tell.html</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="edit-bangla.html" target="_blank">edit-bangla.html</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="edit-manuscript.html" target="_blank">edit-manuscript.html</a></span>
+                    </li>
+                </ul>
+            </div>
+
+        <div class="space-y-6">
+
+
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <p class="muted-text font-medium text-lg">Book Structure Reference:</p>
+            </div>
+
+
+                <ul class="space-y-4 muted-text text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="book-details.txt" target="_blank">book-details.txt</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="ref-chat.txt" target="_blank">ref-chat.txt</a></span>
+                    </li>
+                </ul>
+            </div>
+
+        <div class="space-y-6">
+
+
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <p class="muted-text font-medium text-lg">On Writing:</p>
+            </div>
+
+
+                <ul class="space-y-4 muted-text text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="book-details.html" target="_blank">book-details.html</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="chapter-details.html" target="_blank">chapter-details.html</a></span>
+                    </li>
+                </ul>
+            </div>
+
+        <div class="space-y-6">
+
+
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <p class="muted-text font-medium text-lg">SMP:</p>
+            </div>
+
+
+                <ul class="space-y-4 muted-text text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="AIMoneyLinesLifetime.html" target="_blank">AIMoneyLinesLifetime.html</a></span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="Bonus Prompts.txt" target="_blank">Bonus Prompts.txt</a></span>
+                    </li>
+                </ul>
+            </div>
+
+        <div class="space-y-6">
+
+
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <p class="muted-text font-medium text-lg">Prompt Architecture:</p>
+                </a>
+            </div>
+
+
+                <ul class="space-y-4 muted-text text-lg">
+                    <li class="flex items-start gap-3">
+                        <span class="custom-bullet mt-[-2px]">●</span>
+                        <span><a href="prompt-architecture-analysis.html" target="_blank">prompt-architecture-analysis.html</a></span>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+        <footer>
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+
+    </div>
+</body>
+</html>
