@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="bn-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বইয়ের বিবরণ</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color:#faf9f6; --surface-color:#fff; --border-color:#e2dfdc; --border-focus:#706b63; --text-main:#2c2a29; --text-muted:#6e6963; --accent:#1a1918; --accent-hover:#383532; --success:#2e7d32; --header-color:#4338ca; --font-serif:'Newsreader',serif; --font-sans:'Plus Jakarta Sans',sans-serif; }
+        *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:var(--font-sans); background:var(--bg-color); color:var(--text-main); line-height:1.6; padding:40px 20px; -webkit-font-smoothing:antialiased; }
+        .document-container { max-width:800px; margin:0 auto; background:var(--surface-color); border:1px solid var(--border-color); border-radius:12px; padding:48px 40px; box-shadow:0 4px 24px rgba(0,0,0,.02); }
+        .doc-header { text-align:center; margin-bottom:40px; border-bottom:1px solid var(--border-color); padding-bottom:30px; }
+        .doc-title { font-family:var(--font-serif); font-size:2.2rem; font-weight:600; letter-spacing:-.02em; color:var(--header-color); margin-bottom:8px; }
+        .doc-subtitle { font-size:.95rem; color:var(--text-muted); font-weight:400; }
+        .section-heading { font-family:var(--font-serif); font-size:1.3rem; font-weight:600; color:var(--accent); margin:36px 0 16px; padding-bottom:8px; border-bottom:1px dashed var(--border-color); }
+        .input-group { margin-bottom:20px; }
+        .input-label { display:block; font-size:.95rem; font-weight:500; color:var(--text-main); margin-bottom:8px; }
+        .doc-input,.prompt-preview { width:100%; padding:12px 16px; font-family:var(--font-sans); font-size:.95rem; color:var(--text-main); background:var(--bg-color); border:1px solid var(--border-color); border-radius:8px; resize:vertical; min-height:120px; line-height:1.65; transition:border-color .2s ease,box-shadow .2s ease; }
+        .doc-input:focus { outline:none; border-color:var(--border-focus); background:var(--surface-color); box-shadow:0 0 0 3px rgba(112,107,99,.1); }
+        .output-card { margin-top:22px; background:var(--bg-color); border:1px solid var(--border-color); border-radius:8px; padding:24px; }
+        .output-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+        .output-title { font-family:var(--font-serif); font-size:1.1rem; font-weight:600; }
+        .prompt-preview { display:block; min-height:220px; background:var(--surface-color); font-size:.95rem; white-space:pre-wrap; margin-bottom:16px; }
+        .copy-btn { background:var(--accent); color:#fff; border:0; padding:10px 20px; font:500 .85rem var(--font-sans); border-radius:6px; cursor:pointer; transition:background .2s ease; }
+        .copy-btn:hover { background:var(--accent-hover); } .copy-btn.copied { background:var(--success); }
+        .doc-footer { text-align:center; margin-top:50px; font-size:.85rem; color:var(--text-muted); border-top:1px solid var(--border-color); padding-top:20px; }
+        @media (max-width:640px) { body { padding:12px 8px; } .document-container { padding:24px 16px; } .doc-title { font-size:1.8rem; } .output-card { padding:16px; } .output-header { align-items:flex-start; flex-direction:column; } }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">বইয়ের বিবরণ</h1>
+            <p class="doc-subtitle">(for my AI prompt)</p>
+        </header>
+        <section aria-labelledby="inputs-heading">
+            <h2 class="section-heading" id="inputs-heading">বিবরণ লিখুন</h2>
+            <div class="input-group">
+                <label class="input-label" for="bookDescription">বইয়ের বিবরণ:</label>
+                <textarea id="bookDescription" class="doc-input" placeholder="[বইয়ের বিবরণ]" oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="input-label" for="partDescription">পর্ব-র বিবরণ:</label>
+                <textarea id="partDescription" class="doc-input" placeholder="[পর্ব-র বিবরণ]" oninput="updatePrompt()"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="input-label" for="chapterDescription">অধ্যায়-র বিবরণ:</label>
+                <textarea id="chapterDescription" class="doc-input" placeholder="[অধ্যায়-র বিবরণ]" oninput="updatePrompt()"></textarea>
+            </div>
+        </section>
+        <section aria-labelledby="output-heading">
+            <h2 class="section-heading" id="output-heading">Prompt</h2>
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Live Prompt Preview</span>
+                    <button class="copy-btn" type="button" onclick="copyPrompt()">Copy to Clipboard</button>
+                </div>
+                <textarea id="promptOutput" class="prompt-preview" readonly aria-label="Generated prompt"></textarea>
+            </div>
+        </section>
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+    <script>
+        const template = 'বইয়ের বিবরণ:\n[বইয়ের বিবরণ]\n\nপর্ব-র বিবরণ:\n[পর্ব-র বিবরণ]\n\nঅধ্যায়-র বিবরণ:\n[অধ্যায়-র বিবরণ]';
+        const fields = [
+            ['[বইয়ের বিবরণ]', 'bookDescription'],
+            ['[পর্ব-র বিবরণ]', 'partDescription'],
+            ['[অধ্যায়-র বিবরণ]', 'chapterDescription']
+        ];
+        function updatePrompt() {
+            let finalPrompt = template;
+            fields.forEach(([placeholder, id]) => {
+                finalPrompt = finalPrompt.replace(placeholder, document.getElementById(id).value);
+            });
+            document.getElementById('promptOutput').value = finalPrompt;
+        }
+        async function copyPrompt() {
+            const outputBox = document.getElementById('promptOutput');
+            const button = document.querySelector('.copy-btn');
+            try {
+                await navigator.clipboard.writeText(outputBox.value);
+            } catch (error) {
+                outputBox.focus(); outputBox.select(); document.execCommand('copy'); outputBox.setSelectionRange(0, 0);
+            }
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!'; button.classList.add('copied');
+            window.setTimeout(() => { button.textContent = originalText; button.classList.remove('copied'); }, 2000);
+        }
+        updatePrompt();
+    </script>
+</body>
+</html>
