@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Bundle Follow-up</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .document-container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+        .doc-header {
+            text-align: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 28px;
+        }
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 30px 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .output-card {
+            margin-top: 18px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+        }
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .output-title {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .prompt-preview {
+            display: block;
+            width: 100%;
+            min-height: 110px;
+            padding: 14px 16px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            resize: vertical;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        .prompt-preview:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+        .copy-btn {
+            flex: 0 0 auto;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 9px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn:active { transform: translateY(1px); }
+        .copy-btn.copied { background: var(--success); }
+        .doc-footer {
+            text-align: center;
+            margin-top: 46px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .output-card { padding: 16px; }
+            .output-header { align-items: flex-start; flex-direction: column; }
+            .copy-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Prompt Bundle Follow-up</h1>
+            <p class="doc-subtitle">(to add more prompts)</p>
+        </header>
+
+        <section aria-labelledby="prompts-heading">
+            <h2 id="prompts-heading" class="section-heading">Prompts</h2>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#1</span>
+                    <button class="copy-btn" type="button" data-copy="prompt1">Copy Prompt#1</button>
+                </div>
+                <textarea id="prompt1" class="prompt-preview" readonly aria-label="Prompt 1"></textarea>
+            </div>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#2</span>
+                    <button class="copy-btn" type="button" data-copy="prompt2">Copy Prompt#2</button>
+                </div>
+                <textarea id="prompt2" class="prompt-preview" readonly aria-label="Prompt 2"></textarea>
+            </div>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#3</span>
+                    <button class="copy-btn" type="button" data-copy="prompt3">Copy Prompt#3</button>
+                </div>
+                <textarea id="prompt3" class="prompt-preview" readonly aria-label="Prompt 3"></textarea>
+            </div>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#4</span>
+                    <button class="copy-btn" type="button" data-copy="prompt4">Copy Prompt#4</button>
+                </div>
+                <textarea id="prompt4" class="prompt-preview" readonly aria-label="Prompt 4"></textarea>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        const prompts = {
+            prompt1: `এই প্রম্পট বান্ডিলটাতে কি ChatGPT-কে “সহায়ক শিক্ষক” হিসেবে ব্যবহার করার prompt এবং পাঠ্যবই-ভিত্তিক নির্ভুলতার prompt আলাদা করে রাখা হয়েছে যাতে buyer-এর কাছে bundle-টির বাস্তব ব্যবহারযোগ্যতা অনেক বেশি হবে?`,
+            prompt2: `এই কয়টা প্রম্পটই কি যথেষ্ট না কি আরও কয়েকটা যোগ করলে এই প্রম্পট বান্ডিলটা আরও effective and advanced হবে?`,
+            prompt3: `তাহলে এই প্রম্পট বান্ডিলটার মোট কাঠামো যেটা দাঁড়ালো তার Structure-টা দাও।`,
+            prompt4: `Give me all these prompts with their respective serial numbers and names, categorized and presented together in a single Markdown code box, without using symbols such as "#" or "*".`
+        };
+
+        Object.entries(prompts).forEach(([id, text]) => {
+            document.getElementById(id).value = text;
+        });
+
+        async function copyPrompt(button) {
+            const output = document.getElementById(button.dataset.copy);
+            try {
+                await navigator.clipboard.writeText(output.value);
+            } catch (error) {
+                output.focus();
+                output.select();
+                document.execCommand('copy');
+                output.setSelectionRange(0, 0);
+            }
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            window.setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        document.querySelectorAll('[data-copy]').forEach(button => {
+            button.addEventListener('click', () => copyPrompt(button));
+        });
+    </script>
+</body>
+</html>
