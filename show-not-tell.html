@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show, not tell</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 36px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .input-group { margin-bottom: 20px; }
+
+        .input-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .doc-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 180px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .doc-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            background: var(--surface-color);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+
+        .output-card {
+            margin-top: 30px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+
+        .output-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .prompt-preview {
+            display: block;
+            width: 100%;
+            min-height: 360px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            line-height: 1.5;
+            resize: vertical;
+            white-space: pre-wrap;
+            margin-bottom: 16px;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+
+        .doc-footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .output-card { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Show, not tell</h1>
+            <p class="doc-subtitle">(to transform)</p>
+        </header>
+
+        <section aria-labelledby="input-heading">
+            <h2 class="section-heading" id="input-heading">Sentence</h2>
+            <div class="input-group">
+                <label class="input-label" for="sentence">Insert Your Sentence Here</label>
+                <textarea id="sentence" class="doc-input" placeholder="Insert Your Sentence Here" oninput="updatePrompt()"></textarea>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt-heading">
+            <h2 class="section-heading" id="prompt-heading">Prompt</h2>
+            <div class="output-card">
+                <div class="output-header"><span class="output-title">Live Prompt Preview</span></div>
+                <textarea id="promptOutput" class="prompt-preview" readonly aria-label="Generated prompt"></textarea>
+                <button class="copy-btn" type="button" onclick="copyPrompt()">Copy to Clipboard</button>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        const template = `Here we are with a writing lesson. 
+We are looking at the skill of showing, not telling, and it's going to transform your writing as long as you put it into practice afterwards. "Show, not tell. What's he talking about?"
+
+EXAMPLES
+
+When we're writing we want to avoid simple statements that don't really add any description or flavour. For example: "The man was stressed." [Snores] Boring. Instead, I want you to paint a picture, I really want you to describe the man is stressed without telling me that he is. So how can you do that? We're kind of trying to avoid this word, and describe it instead. So what's he doing? "The man was fidgeting. Ah, he's fidgeting. He's so stressed, he can't sort of stay still. And biting his nails." Okay? So pick out a couple of details that show how the person was.
+
+Next one: "The room was messy." Again, it's a simple, simple sentence. It's just one sort of main clause and it's not very interesting. Much better to describe the items in the room that make it messy. For example: "There was a leftover pizza, dirty clothes were strewn"... I'll write that word for you. That means they were covering the floor. "...and there were dirty plates and cups". Okay? These details give us the idea that it is messy.
+
+Example three: "The woman was confident." Okay, but it would be much more effective if you described how she was confident. So, how does she move? How do other people react to her? "She strode", that means she walked, but with purpose. Okay? So I've picked an interesting verb. "She strode into the room, and everyone turned their heads to notice her." Okay? Much clearer, more vivid idea of confidence than just saying she was confident.
+
+Example four: "The boy was careful." Tell us how he was careful. "He placed his favourite magazine in the top drawer of his cabinet." Okay? So we need to say exactly what he is placing, the object there has been missed out. "He placed"... There's no room for me to write it. You get the idea, he places his favourite book or magazine, and look how specific it is: "the top drawer of his cabinet".
+
+Next example: "The stadium was full." Again, I'm bored with this simple sentence construction. We need to make it more interesting. "The sound from the stadium was deafening", okay? And then give us some main action perhaps: "The sound from the stadium was deafening as the crowd rose up to chant the player's name." Okay? Give the sense that the stadium is full from what you can see and what you can hear. Okay?
+
+A couple of ones to describe weather. "It was hot." Okay? Well, a very young child could write a sentence like that, so if you're sort of a teenager or an adult, it's time to raise the bar. How can we tell that it is hot? Well: "The sun was causing damage to", "The sun was melting", "The sun was burning", "The sun was causing the lady's skin to turn red". Okay? Pick out details that show the effect.
+
+"It was cold. It was cold." How do we know it was cold? How cold did it feel? What can you see? "Drainpipes were freezing, ice was as thick as"... I don't know. "It was three inches thick." Whatever, you've got to show details rather than just stating things. -"It was windy." -"The umbrella was totally bent out of shape. The umbrella"-you know for keeping the rain off us-"was totally"-that means fully-"bent"-Yeah? Bent-"...out of shape", out of its normal position.
+
+"He found it funny." Right? How funny did he find it? Okay? Better to... For us to get the idea to picture what he was doing: "He was rolling around the floor in hysterics." Okay? When you're so... Find something so funny, you're like: [Laughs]. Okay? He can't control his body he finds it so funny. "Hysterics", that means like totally lost control. "Hysteria". Okay? Hysterics. "In hysterics" means finding something really, really funny.
+
+"The castle was captured." Right. I want to get a sense of drama. I want to imagine what's happening there at the castle. Is the king having his head cut off? Are the new army marching in? What's happening? "The new flag was hoisted up on high, greeted by a cheer from the crowd." Okay? Paint pictures, pick out details.
+
+TASK
+
+Review the sentence below and show me how to apply the “show, not tell” technique:
+
+{SENTENCE}`;
+
+        function updatePrompt() {
+            const sentence = document.getElementById('sentence').value;
+            document.getElementById('promptOutput').value = template.replace('{SENTENCE}', sentence);
+        }
+
+        async function copyPrompt() {
+            const output = document.getElementById('promptOutput');
+            const button = document.querySelector('.copy-btn');
+            try {
+                await navigator.clipboard.writeText(output.value);
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (error) {
+                output.focus();
+                output.select();
+                document.execCommand('copy');
+                output.setSelectionRange(0, 0);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', updatePrompt);
+    </script>
+</body>
+</html>

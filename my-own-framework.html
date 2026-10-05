@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Own Framework</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 36px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .input-group { margin-bottom: 20px; }
+
+        .input-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .doc-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 180px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .doc-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            background: var(--surface-color);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+
+        .output-card {
+            margin-top: 30px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+
+        .output-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .prompt-preview {
+            display: block;
+            width: 100%;
+            min-height: 360px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            line-height: 1.5;
+            resize: vertical;
+            white-space: pre-wrap;
+            margin-bottom: 16px;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+
+        .doc-footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .output-card { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">My Own Framework</h1>
+            <p class="doc-subtitle">(of content)</p>
+        </header>
+
+        <section aria-labelledby="input-heading">
+            <h2 class="section-heading" id="input-heading">Observation</h2>
+            <div class="input-group">
+                <label class="input-label" for="observation">Enter the observation you want to express as content:</label>
+                <textarea id="observation" class="doc-input" placeholder="Write the observation you want to express as content." oninput="updatePrompts()"></textarea>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt-one-heading">
+            <h2 class="section-heading" id="prompt-one-heading">Prompt #1</h2>
+            <div class="output-card">
+                <div class="output-header"><span class="output-title">Prompt #1</span></div>
+                <textarea id="promptOutput1" class="prompt-preview" readonly aria-label="Prompt 1 output"></textarea>
+                <button class="copy-btn" type="button" onclick="copyPrompt('promptOutput1', this)">Copy Prompt #1</button>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt-two-heading">
+            <h2 class="section-heading" id="prompt-two-heading">Prompt #2</h2>
+            <div class="output-card">
+                <div class="output-header"><span class="output-title">Prompt #2</span></div>
+                <textarea id="promptOutput2" class="prompt-preview" readonly aria-label="Prompt 2 output"></textarea>
+                <button class="copy-btn" type="button" onclick="copyPrompt('promptOutput2', this)">Copy Prompt #2</button>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        const promptOneTemplate = `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+INPUT
+
+Your Observation:
+{OBSERVATION}
+
+TASK
+
+Turn the given observation into a clear, engaging piece of content.
+
+The content should not simply state the observation as a conclusion. It should unfold the observation naturally through a human practice, a story, an insight, and finally a general rule or principle.
+
+CONTENT STRUCTURE
+
+1. Opening — Use a brief annotation or illustration to draw a clear picture of one or more common human practices related to the observation.
+
+2. Story — Develop a short, relatable story that makes the practice and the underlying situation easy to visualize.
+
+3. Meaning of the Story — Explain what the story means at the surface level, without jumping prematurely to the deeper insight.
+
+4. Insight — Uncover the deeper insight contained within the observation and the story.
+
+5. Rule / Principle — Formulate the insight as a clear, general rule or principle that can be understood and applied beyond the specific story.
+
+6. Closing — End by bringing the reader back to the original observation and leaving them with a clear understanding of what it reveals.`;
+
+        const promptTwoTemplate = `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+INPUT
+
+Your Observation:
+{OBSERVATION}
+
+CONTENT TASK
+
+Turn the given observation into a compelling piece of content using a question-driven unfolding process.
+
+The content should not simply explain or announce the observation, insight, or conclusion.
+
+Instead, unfold the observation through a sequence of human practice, story, questions, reasoning, and discovery so that the reader naturally arrives at the insight.
+
+CORE CONTENT JOURNEY
+
+Observation → Human Practice → Story → Surface Meaning → Question → Reasoning → Insight → Rule / Principle → Closing
+
+CONTENT STRUCTURE
+
+1. Opening — Illustrating the Human Practice
+
+Begin with a brief annotation or illustration that draws a clear picture of one or more common human practices related to the observation.
+
+Do not explain the deeper meaning yet.
+
+The purpose of the opening is to make the reader recognize the situation from their own experience.
+
+2. Story — Making the Practice Visible
+
+Develop a short, relatable story that brings the human practice to life.
+
+The story should make the situation concrete and observable rather than theoretical.
+
+3. Surface Meaning — What Appears to Be Happening
+
+Explain what the story appears to mean at the surface level.
+
+Keep this interpretation limited to what an ordinary observer would reasonably conclude.
+
+Do not introduce the deeper insight yet.
+
+4. Question — Creating the Need to Look Deeper
+
+Introduce a natural question that challenges the surface-level interpretation.
+
+The question should emerge from something unresolved, contradictory, surprising, or unexplained in the story.
+
+The question must create a genuine reason to continue thinking.
+
+5. Reasoning — Following the Question
+
+Examine the question logically.
+
+Use the details of the story, relevant human behaviour, observable patterns, comparisons, or simple reasoning to investigate what may actually be happening.
+
+Do not jump directly to the answer.
+
+Each reasoning step should naturally create the need for the next question or deeper examination.
+
+6. Insight — Uncovering What Is Actually Happening
+
+Reveal the deeper insight that emerges from the reasoning.
+
+The insight should explain something that the surface-level interpretation could not fully explain.
+
+Present it as a discovery rather than as a declaration.
+
+7. Rule / Principle — Generalizing the Insight
+
+Formulate the insight as a clear, concise, and broadly applicable rule or principle.
+
+The principle should go beyond the specific story and explain a wider pattern of human behaviour, decision-making, or reality.
+
+8. Closing — Returning to the Original Observation
+
+Return to the original observation and show how the newly discovered principle changes the way the reader understands it.
+
+End with a thought, question, or perspective that stays with the reader rather than merely repeating the conclusion.
+
+QUESTION-DRIVEN UNFOLDING RULES
+
+- Never reveal the final insight at the beginning.
+- Do not introduce a question merely for stylistic effect; every question must arise naturally from something that has just been established.
+- Each important question should resolve one uncertainty while opening the next layer of inquiry.
+- Do not ask questions whose answers are already obvious.
+- Do not force questions into places where the reasoning is already sufficient.
+- Let contradictions, gaps, surprises, or unexplained outcomes generate the questions.
+- The reasoning must earn the insight.
+- The final principle must be a logical consequence of the preceding observation and reasoning, not an unrelated life lesson.
+- Keep the reader intellectually engaged by making them want to know, “But why does this happen?”
+- Prefer discovery over explanation.
+- Prefer unfolding over telling.
+- Prefer reasoning over assertion.
+
+QUALITY CHECK
+
+Before finalizing the content, verify:
+
+1. Is the original observation clearly recognizable?
+2. Is the human practice relatable and concrete?
+3. Does the story make the practice visible?
+4. Is the surface-level meaning clearly distinguished from the deeper insight?
+5. Does the key question arise naturally from the story?
+6. Does each reasoning step lead naturally to the next question or insight?
+7. Is the insight genuinely discovered through the reasoning?
+8. Does the final rule or principle generalize beyond the story?
+9. Does the closing return meaningfully to the original observation?
+10. Has the content avoided giving away the conclusion too early?`;
+
+        function updatePrompts() {
+            const observation = document.getElementById('observation').value;
+            document.getElementById('promptOutput1').value = promptOneTemplate.replace('{OBSERVATION}', observation);
+            document.getElementById('promptOutput2').value = promptTwoTemplate.replace('{OBSERVATION}', observation);
+        }
+
+        async function copyPrompt(outputId, button) {
+            const output = document.getElementById(outputId);
+            try {
+                await navigator.clipboard.writeText(output.value);
+                const originalText = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (error) {
+                output.focus();
+                output.select();
+                document.execCommand('copy');
+                output.setSelectionRange(0, 0);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', updatePrompts);
+    </script>
+</body>
+</html>
