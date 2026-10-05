@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="bn-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#faf9f6">
+    <title>Prompt Architecture Analysis</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+        .doc-header {
+            text-align: center;
+            margin-bottom: 36px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+        .doc-subtitle { font-size: 0.98rem; color: var(--text-muted); font-weight: 400; }
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .input-group { margin-bottom: 20px; }
+        .input-label { display: block; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+        .input-help { color: var(--text-muted); font-size: 0.88rem; margin: -3px 0 10px; }
+        .doc-input, .prompt-preview {
+            display: block;
+            width: 100%;
+            padding: 14px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            line-height: 1.65;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .doc-input { min-height: 170px; }
+        .doc-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            background: var(--surface-color);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+        .prompt-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+        }
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .prompt-title { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; }
+        .prompt-preview {
+            min-height: 520px;
+            background: var(--surface-color);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        .copy-btn {
+            flex: 0 0 auto;
+            background: var(--accent);
+            color: #fff;
+            border: 0;
+            padding: 10px 18px;
+            font: 500 0.85rem var(--font-sans);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn.copied { background: var(--success); }
+        .doc-footer {
+            text-align: center;
+            margin-top: 44px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .prompt-card { padding: 14px; }
+            .prompt-header { align-items: flex-start; flex-direction: column; }
+            .prompt-preview { min-height: 600px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Prompt Architecture Analysis</h1>
+            <p class="doc-subtitle">(understand a prompt)</p>
+        </header>
+
+        <section aria-labelledby="input-heading">
+            <h2 class="section-heading" id="input-heading">Reusable Prompt Input</h2>
+            <div class="input-group">
+                <label class="input-label" for="reusablePrompt">[REUSABLE PROMPT এখানে দিন]</label>
+                <p class="input-help">আপনার reusable prompt লিখুন। নিচের prompt-এ দুইটি placeholder স্বয়ংক্রিয়ভাবে এই লেখায় বদলে যাবে।</p>
+                <textarea id="reusablePrompt" class="doc-input" placeholder="এখানে reusable prompt লিখুন..." oninput="updatePrompt()" spellcheck="false"></textarea>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt-heading">
+            <h2 class="section-heading" id="prompt-heading">Prompt</h2>
+            <div class="prompt-card">
+                <div class="prompt-header">
+                    <span class="prompt-title">Live Prompt</span>
+                    <button class="copy-btn" type="button" onclick="copyPrompt()">Copy to Clipboard</button>
+                </div>
+                <textarea id="promptOutput" class="prompt-preview" readonly aria-label="Generated prompt"></textarea>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        const template = `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+আপনি একজন Prompt Architecture Analyst হিসেবে কাজ করুন।
+
+আমি আপনাকে একটি reusable prompt দেব। আপনার কাজ হল prompt-টিকে শুধু “কী বলা হয়েছে” হিসেবে ব্যাখ্যা করা নয়; বরং “prompt-টি কীভাবে কাজ করছে”—তার operational anatomy বিশ্লেষণ করা।
+
+বিশ্লেষণের মূল কাঠামো
+
+1. Task
+
+AI-কে আসলে কী কাজ করতে বলা হয়েছে?
+
+শুধু instruction-টি উদ্ধৃত করবেন না। ব্যাখ্যা করুন:
+- মূল কাজটি কী?
+- AI-এর কাছ থেকে কী action প্রত্যাশিত?
+- prompt-এর অন্য component-গুলোর তুলনায় এই Task-এর ভূমিকা কী?
+
+2. Source of Truth
+
+AI-কে কোন তথ্য, content, document, context বা source-এর ভিত্তিতে কাজ করতে বলা হয়েছে?
+
+বিশ্লেষণ করুন:
+- Source of Truth কী?
+- এটি কোথা থেকে আসে?
+- AI-এর সিদ্ধান্ত বা output-এর ক্ষেত্রে এর authority কী?
+- একাধিক source থাকলে তাদের মধ্যে priority নির্ধারণ করা হয়েছে কি না?
+
+যদি prompt-এ Source of Truth স্পষ্টভাবে নির্ধারিত না থাকে, তা স্পষ্টভাবে উল্লেখ করুন।
+
+3. Inputs
+
+কাজটি সম্পন্ন করার জন্য user-এর কাছ থেকে কী কী তথ্য প্রয়োজন?
+
+বিশ্লেষণ করুন:
+- কোন inputs বাধ্যতামূলক?
+- কোন inputs optional?
+- কোন input কোন কাজকে প্রভাবিত করে?
+- input অনুপস্থিত থাকলে prompt কীভাবে তা handle করে?
+
+4. Process / Method
+
+AI-কে কীভাবে কাজটি করতে বলা হয়েছে?
+
+এখানে prompt-এর internal workflow বা reasoning procedure শনাক্ত করুন।
+
+বিশ্লেষণ করুন:
+- AI-কে কি নির্দিষ্ট step-by-step method দেওয়া হয়েছে?
+- কোনও analysis, classification, comparison, transformation, filtering বা decision process আছে কি?
+- কোনও নির্দিষ্ট sequence বা dependency আছে কি?
+- কোন instruction অন্য instruction-এর আগে বা পরে কাজ করে?
+- এই method না থাকলে output কীভাবে বদলে যেতে পারে?
+
+শুধু prompt-এর ধাপগুলোর তালিকা দেবেন না। ব্যাখ্যা করুন, এই method কীভাবে output তৈরি করতে সাহায্য করছে।
+
+5. Output Specification
+
+AI-কে কী ধরনের output তৈরি করতে বলা হয়েছে?
+
+বিশ্লেষণ করুন:
+- output-এর content কী?
+- structure কী?
+- format কী?
+- length বা quantity নির্ধারিত আছে কি?
+- sections, headings, tables, bullets বা অন্য কোনও structural requirement আছে কি?
+- output-এর কোন বৈশিষ্ট্য বাধ্যতামূলক?
+
+6. Quality Standards
+
+Output কতটা ভালো বা কোন মানে তৈরি হতে হবে?
+
+বিশ্লেষণ করুন:
+- prompt-এ quality-এর জন্য কী standards দেওয়া হয়েছে?
+- content quality এবং presentation quality—দুটির কোনওটি নির্ধারিত আছে কি?
+- accuracy, relevance, clarity, depth, usefulness, originality, consistency ইত্যাদি কোনও quality criterion আছে কি?
+- quality standard কি measurable, observable বা testable?
+
+7. Boundaries / Don'ts
+
+AI-কে কী করতে নিষেধ করা হয়েছে বা কোন সীমার মধ্যে থাকতে বলা হয়েছে?
+
+বিশ্লেষণ করুন:
+- explicit নিষেধাজ্ঞা কী?
+- implicit boundary আছে কি?
+- scope কীভাবে সীমাবদ্ধ করা হয়েছে?
+- কোন ধরনের output বা behaviour deliberately বাদ দেওয়া হয়েছে?
+- এই boundaries না থাকলে কী ধরনের ভুল output হতে পারত?
+
+8. Final Output Rule
+
+শেষে AI-কে ঠিক কীভাবে final response দিতে বলা হয়েছে?
+
+এটি Output Specification থেকে আলাদা করে বিশ্লেষণ করুন।
+
+বিশ্লেষণ করুন:
+- final response-এর presentation কীভাবে নিয়ন্ত্রিত হয়েছে?
+- কোনও extra explanation, disclaimer, commentary বা meta-response নিষিদ্ধ বা অনুমোদিত কি?
+- AI-এর internal process এবং user-visible final output-এর মধ্যে কোনও distinction তৈরি করা হয়েছে কি?
+
+Component-গুলোর স্তরভিত্তিক সম্পর্ক
+
+উপরের ৮টি component-কে আলাদা আলাদা বিশ্লেষণ করার পাশাপাশি তাদের architectural relationship-ও দেখান।
+
+Layer 1 — কাজ নির্ধারণ
+
+Task
+Source of Truth
+Inputs
+
+এই layer ব্যাখ্যা করে:
+
+AI কী করবে → কোন ভিত্তিতে করবে → কী information নিয়ে করবে
+
+Layer 2 — কাজ সম্পন্ন করার পদ্ধতি নিয়ন্ত্রণ
+
+Process / Method
+Quality Standards
+Boundaries / Don'ts
+
+এই layer ব্যাখ্যা করে:
+
+AI কীভাবে কাজ করবে → কোন মান বজায় রাখবে → কোন সীমার মধ্যে থাকবে
+
+Layer 3 — ফলাফল নিয়ন্ত্রণ
+
+Output Specification
+Final Output Rule
+
+এই layer ব্যাখ্যা করে:
+
+কী ফলাফল তৈরি হবে → final response হিসেবে কীভাবে প্রকাশ পাবে
+
+Operational Anatomy বের করার মূল প্রশ্ন
+
+পুরো prompt বিশ্লেষণ করার সময় এই প্রশ্নের ধারাটি অনুসরণ করুন:
+
+AI-কে কী করতে বলা হয়েছে → কোন ভিত্তিতে → কী input নিয়ে → কীভাবে → কোন মান বজায় রেখে → কোন সীমার মধ্যে → কী output হিসেবে → কীভাবে finalise করতে হবে?
+
+এই ধারাটিকে prompt-এর Operational Anatomy হিসেবে ব্যবহার করুন।
+
+Analysis-এর সময় গুরুত্বপূর্ণ নিয়ম
+
+1. Prompt-এর কোনও instruction-কে শুধু পুনরাবৃত্তি করবেন না; তার functional role ব্যাখ্যা করুন।
+
+2. একটি instruction যদি একাধিক component-এর কাজ করে, সেটি উল্লেখ করুন এবং তার primary role নির্ধারণ করুন।
+
+3. Prompt-এ কোনও component না থাকলে সেটিকে জোর করে তৈরি করবেন না। লিখুন:
+“এই component prompt-এ স্পষ্টভাবে নির্ধারিত নেই।”
+
+4. Prompt-এর বাইরে থেকে কোনও assumption যোগ করবেন না।
+
+5. Prompt-এর language বা wording-এর পরিবর্তে তার operational function-এর দিকে বেশি গুরুত্ব দিন।
+
+6. কোনও component অন্য component-এর output-এর উপর নির্ভর করলে সেই dependency শনাক্ত করুন।
+
+7. Component-গুলোর মধ্যে conflict থাকলে conflict শনাক্ত করুন এবং কোন instruction কার্যত বেশি controlling তা ব্যাখ্যা করুন।
+
+8. শুধু component-এর উপস্থিতি নয়, তাদের পারস্পরিক সম্পর্ক বিশ্লেষণ করুন।
+
+Final Analysis Structure
+
+1. Prompt-এর সামগ্রিক কাজ
+
+একটি সংক্ষিপ্ত paragraph-এ বলুন prompt-টি overall কী করতে তৈরি।
+
+2. Operational Anatomy
+
+| Component | Prompt-এ কী আছে | Functional Role |
+|---|---|---|
+| Task | ... | ... |
+| Source of Truth | ... | ... |
+| Inputs | ... | ... |
+| Process / Method | ... | ... |
+| Output Specification | ... | ... |
+| Quality Standards | ... | ... |
+| Boundaries / Don'ts | ... | ... |
+| Final Output Rule | ... | ... |
+
+3. Component Relationship
+
+৮টি component কীভাবে একে অপরের সঙ্গে কাজ করছে তা ব্যাখ্যা করুন।
+
+বিশেষ করে দেখুন:
+
+Task → Source of Truth → Inputs → Process → Quality/Boundaries → Output → Final Output
+
+এই flow prompt-এ বাস্তবে কীভাবে কাজ করছে।
+
+4. Prompt-এর Operational Flow
+
+Prompt-টির কাজের flow-টি সংক্ষেপে দেখান:
+
+Input → Processing → Control → Output
+
+প্রয়োজনে আরও intermediate stage যোগ করুন।
+
+5. Architectural Strengths
+
+Prompt-এর architecture-এর শক্তিশালী দিকগুলো শনাক্ত করুন।
+
+6. Architectural Weaknesses / Gaps
+
+শুধুমাত্র prompt-এর মধ্যে যা সত্যিই অনুপস্থিত, অস্পষ্ট, redundant, conflicting বা operationally দুর্বল—সেগুলো শনাক্ত করুন।
+
+7. Final Diagnosis
+
+শেষে একেবারে সংক্ষেপে বলুন:
+
+“এই prompt-টি কীভাবে কাজ করে—তার সবচেয়ে গুরুত্বপূর্ণ operational principle কী?”
+
+গুরুত্বপূর্ণ
+
+আপনার analysis-এর লক্ষ্য হবে prompt-টির content summary তৈরি করা নয়; prompt-টির operating mechanism উন্মোচন করা।
+
+INPUT
+
+নিচে যে reusable prompt দেওয়া হবে, সেটিই analysis-এর একমাত্র primary source হিসেবে ব্যবহার করুন:
+
+[REUSABLE PROMPT এখানে দিন]`;
+
+        function updatePrompt() {
+            const reusablePrompt = document.getElementById('reusablePrompt').value;
+            const output = template.replaceAll('[REUSABLE PROMPT এখানে দিন]', reusablePrompt);
+            document.getElementById('promptOutput').value = output;
+        }
+
+        async function copyPrompt() {
+            const output = document.getElementById('promptOutput');
+            const button = document.querySelector('.copy-btn');
+            try {
+                await navigator.clipboard.writeText(output.value);
+            } catch (error) {
+                output.focus();
+                output.select();
+                document.execCommand('copy');
+                output.setSelectionRange(0, 0);
+            }
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            window.setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        updatePrompt();
+    </script>
+</body>
+</html>
+
