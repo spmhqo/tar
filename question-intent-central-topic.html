@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question-Intent-Central Topic</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .document-container {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+        .doc-header {
+            text-align: center;
+            margin-bottom: 34px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 28px;
+        }
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+        .doc-subtitle { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; }
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 30px 0 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .input-group { margin-bottom: 20px; }
+        .input-label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+        .doc-input, .prompt-preview {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            line-height: 1.6;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .doc-input { background: var(--bg-color); min-height: 76px; resize: none; overflow: hidden; }
+        .doc-input:focus, .prompt-preview:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            background: var(--surface-color);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+        .output-card {
+            margin-top: 18px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 22px;
+        }
+        .output-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .output-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 600; color: var(--accent); }
+        .prompt-preview {
+            display: block;
+            min-height: 240px;
+            background: var(--surface-color);
+            border-radius: 6px;
+            resize: vertical;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        .copy-btn {
+            flex: 0 0 auto;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 9px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn:active { transform: translateY(1px); }
+        .copy-btn.copied { background: var(--success); }
+        .doc-footer {
+            text-align: center;
+            margin-top: 44px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .output-card { padding: 16px; }
+            .output-header { align-items: flex-start; flex-direction: column; }
+            .copy-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Question-Intent-Central Topic</h1>
+            <p class="doc-subtitle">(in a keyword or sentence)</p>
+        </header>
+
+        <section aria-labelledby="input-heading">
+            <h2 id="input-heading" class="section-heading">Keyword or Sentence</h2>
+            <div class="input-group">
+                <label class="input-label" for="keywordInput">KEYWORD OR SENTENCE:</label>
+                <textarea id="keywordInput" class="doc-input" placeholder="[Insert Keyword or Sentence Here]" aria-label="Keyword or sentence" rows="2"></textarea>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt1-heading">
+            <h2 id="prompt1-heading" class="section-heading">Prompt#1</h2>
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#1</span>
+                    <button class="copy-btn" type="button" data-copy="prompt1Output">Copy Prompt#1</button>
+                </div>
+                <textarea id="prompt1Output" class="prompt-preview" readonly aria-label="Prompt 1"></textarea>
+            </div>
+        </section>
+
+        <section aria-labelledby="prompt2-heading">
+            <h2 id="prompt2-heading" class="section-heading">Prompt#2</h2>
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#2</span>
+                    <button class="copy-btn" type="button" data-copy="prompt2Output">Copy Prompt#2</button>
+                </div>
+                <textarea id="prompt2Output" class="prompt-preview" readonly aria-label="Prompt 2"></textarea>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        const prompt1Template = `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+Find the underlying question and intent behind the following keyword or sentence.
+
+KEYWORD OR SENTENCE:
+
+{KEYWORD}`;
+
+        const prompt2Template = `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+Analyze the keyword or sentence provided below and identify its Central Topic.
+
+Definition:
+
+The Central Topic is the person, entity, subject, concept, problem, event, or idea that the content primarily talks about or revolves around. It is the central subject that the content’s main questions, explanations, claims, arguments, examples, or observations are connected to.
+
+Do not identify:
+
+The broad category or niche the content belongs to
+
+The purpose of the content
+
+The search intent
+
+The audience
+
+The conclusion or main takeaway
+
+A minor topic mentioned only as supporting information
+
+Your task:
+
+1. Identify the single Central Topic of the content.
+
+2. Express it as a short, precise noun phrase, not as a sentence.
+
+3. Briefly explain why this is the Central Topic by referring to what the content primarily discusses, asks, explains, or claims about it.
+
+4. If the content contains several apparent topics, determine which one functions as the central subject by considering which topic the other major points are primarily connected to.
+
+5. Do not list multiple Central Topics unless the content genuinely has no single central topic. If that happens, explicitly state that the content has multiple co-equal central topics and identify them.
+
+Output format:
+
+Central Topic:
+[Write the Central Topic]
+
+Why:
+[Brief explanation of why this is the Central Topic]
+
+KEYWORD OR SENTENCE:
+
+{KEYWORD}`;
+
+        const keywordInput = document.getElementById('keywordInput');
+        const prompt1Output = document.getElementById('prompt1Output');
+        const prompt2Output = document.getElementById('prompt2Output');
+
+        function updatePrompts() {
+            const keyword = keywordInput.value || '[Insert Keyword or Sentence Here]';
+            prompt1Output.value = prompt1Template.replace('{KEYWORD}', keyword);
+            prompt2Output.value = prompt2Template.replace('{KEYWORD}', keyword);
+        }
+
+        function resizeInput() {
+            keywordInput.style.height = 'auto';
+            keywordInput.style.height = `${Math.max(76, keywordInput.scrollHeight)}px`;
+        }
+
+        async function copyPrompt(button) {
+            const output = document.getElementById(button.dataset.copy);
+            try {
+                await navigator.clipboard.writeText(output.value);
+            } catch (error) {
+                output.focus();
+                output.select();
+                document.execCommand('copy');
+                output.setSelectionRange(0, 0);
+            }
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            button.classList.add('copied');
+            window.setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        keywordInput.addEventListener('input', () => {
+            updatePrompts();
+            resizeInput();
+        });
+        document.querySelectorAll('[data-copy]').forEach(button => {
+            button.addEventListener('click', () => copyPrompt(button));
+        });
+        updatePrompts();
+        resizeInput();
+    </script>
+</body>
+</html>
