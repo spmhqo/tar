@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Page</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.75;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+
+        .doc-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .prompt-card {
+            margin-top: 20px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .prompt-title {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .prompt-text {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            font-size: 0.98rem;
+            line-height: 1.85;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            flex: 0 0 auto;
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .copy-btn:hover { background: var(--accent-hover); }
+        .copy-btn:focus-visible { outline: 3px solid rgba(67, 56, 202, 0.35); outline-offset: 2px; }
+        .copy-btn.copied { background: var(--success); }
+
+        .doc-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 12px 8px; }
+            .document-container { padding: 24px 16px; }
+            .doc-title { font-size: 1.8rem; }
+            .prompt-card { padding: 18px; }
+            .prompt-header { align-items: flex-start; flex-direction: column; }
+            .copy-btn { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+    <main class="document-container">
+        <header class="doc-header">
+            <h1 class="doc-title">Support Page</h1>
+            <p class="doc-subtitle">(Copy)</p>
+        </header>
+
+        <section class="prompt-card" aria-labelledby="prompt-upgrade-title">
+            <div class="prompt-header">
+                <h2 class="prompt-title" id="prompt-upgrade-title">বিনামূল্যে আপগ্রেড পান</h2>
+                <button class="copy-btn" type="button" data-copy="upgrade">Copy</button>
+            </div>
+            <div class="prompt-text" id="prompt-upgrade" lang="bn">বিনামূল্যে আপগ্রেড পান
+
+এই প্রম্পটগুলো বর্তমান AI technology এবং AI model-এর capabilities অনুযায়ী তৈরি ও optimized করা হয়েছে। ভবিষ্যতে AI technology, AI model-এর কাজ করার পদ্ধতি বা capabilities-এ গুরুত্বপূর্ণ পরিবর্তন এলে, সেই পরিবর্তনের সঙ্গে সামঞ্জস্য রেখে আমরা প্রম্পটগুলো আপগ্রেড করতে পারি। আপনি সেই আপগ্রেডগুলো বিনামূল্যে পেতে চাইলে সাবজেক্টে “আপগ্রেড পেতে আমি ইচ্ছুক” লিখে আমাদের একটি ইমেইল পাঠান। আমরা যখনই এই প্রম্পটগুলো আপগ্রেড করব, নতুন সংস্করণটি আপনাকে ইমেইলের মাধ্যমে বিনামূল্যে পাঠিয়ে দেব।</div>
+        </section>
+
+        <section class="prompt-card" aria-labelledby="prompt-help-title">
+            <div class="prompt-header">
+                <h2 class="prompt-title" id="prompt-help-title">ব্যবহার করতে গিয়ে কোনও সমস্যায় পড়লে জানান</h2>
+                <button class="copy-btn" type="button" data-copy="help">Copy</button>
+            </div>
+            <div class="prompt-text" id="prompt-help" lang="bn">ব্যবহার করতে গিয়ে কোনও সমস্যায় পড়লে জানান
+
+এই প্রম্পটগুলো ব্যবহার করে পাওয়া উত্তরে কোনও সমস্যা হলে, অথবা প্রম্পট ব্যবহার করতে গিয়ে কোনও অসুবিধা হলে, আপনার সমস্যাটি আমাদের লিখে জানান। আমরা বিষয়টি বুঝে আপনার সমস্যার সমাধান খুঁজে বের করতে এবং যতটা সম্ভব আপনাকে সেই সমাধানটি পেতে সাহায্য করার চেষ্টা করব।</div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+    </main>
+
+    <script>
+        document.querySelectorAll('.copy-btn').forEach((button) => {
+            button.addEventListener('click', async () => {
+                const prompt = document.getElementById(`prompt-${button.dataset.copy}`);
+                const originalText = button.textContent;
+
+                try {
+                    await navigator.clipboard.writeText(prompt.innerText);
+                    button.textContent = '✓ Copied!';
+                    button.classList.add('copied');
+                    window.setTimeout(() => {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (error) {
+                    button.textContent = 'Copy failed';
+                    window.setTimeout(() => { button.textContent = originalText; }, 2000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
