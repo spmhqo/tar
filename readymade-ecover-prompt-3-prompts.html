@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readymade Ecover Prompt</title>
+    <link rel="icon" href="spm.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #faf9f6;
+            --surface-color: #ffffff;
+            --border-color: #e2dfdc;
+            --border-focus: #706b63;
+            --text-main: #2c2a29;
+            --text-muted: #6e6963;
+            --accent: #1a1918;
+            --accent-hover: #383532;
+            --success: #2e7d32;
+            --header-color: #4338ca;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .doc-title {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--header-color);
+            margin-bottom: 8px;
+        }
+
+        .doc-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .section-heading {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 36px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .doc-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .doc-input:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            background: var(--surface-color);
+            box-shadow: 0 0 0 3px rgba(112, 107, 99, 0.1);
+        }
+
+        .output-card {
+            margin-top: 30px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .output-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .prompt-preview {
+            width: 100%;
+            min-height: 300px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            line-height: 1.5;
+            resize: vertical;
+            white-space: pre-wrap;
+            margin-bottom: 16px;
+        }
+
+        .copy-btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+        }
+
+        .doc-footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px 8px;
+            }
+
+            .document-container {
+                padding: 24px 16px;
+            }
+
+            .doc-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-container">
+
+        <header class="doc-header">
+            <h1 class="doc-title">Readymade Ecover Prompt</h1>
+            <p class="doc-subtitle">(with graphy.com product banner prompt)</p>
+        </header>
+
+        <section>
+            <h2 class="section-heading">1. Product Information</h2>
+
+            <div class="input-group">
+                <label class="input-label" for="productTitle">Product Title:</label>
+                <textarea id="productTitle" class="doc-input" placeholder="Enter Product Title" oninput="updatePrompts()"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" for="subtitle">Subtitle:</label>
+                <textarea id="subtitle" class="doc-input" placeholder="Enter Subtitle" oninput="updatePrompts()"></textarea>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-heading">2. Prompts</h2>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#1</span>
+                </div>
+                <textarea id="promptOutput1" class="prompt-preview" readonly></textarea>
+                <button class="copy-btn" onclick="copyPrompt('promptOutput1', this)">Copy to Clipboard</button>
+            </div>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#2</span>
+                </div>
+                <textarea id="promptOutput2" class="prompt-preview" readonly></textarea>
+                <button class="copy-btn" onclick="copyPrompt('promptOutput2', this)">Copy to Clipboard</button>
+            </div>
+
+            <div class="output-card">
+                <div class="output-header">
+                    <span class="output-title">Prompt#3</span>
+                </div>
+                <textarea id="promptOutput3" class="prompt-preview" readonly></textarea>
+                <button class="copy-btn" onclick="copyPrompt('promptOutput3', this)">Copy to Clipboard</button>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+        </footer>
+
+    </div>
+
+    <script>
+        const prompt1Template = "Create a consistent premium booklet mockup. The product must appear as a slim upright booklet at a three-quarter studio angle. Use a clean front cover, narrow folded edge, light page depth, crisp edges, realistic lighting, and a polished product-display shadow. Keep the same geometry every time: slim booklet body, lightweight cover, visible folded edge, modest page stack, and clean digital product presentation. Do not make it look like a thick book, software box, binder, report, tablet, workbook, flat poster, or magazine.\n\nCreate one finished ecover mockup using this exact cover text which is in Bengali (India):\nProduct Title: [Product Title]\nSubtitle: [Subtitle]\nInclude the author/brand name: শিবপ্রসাদ মুখার্জি\n\nUse the offer information I provided earlier in this same chat as product context.\n\nUse that context to understand the offer's niche, audience, promise, emotional hook, transformation, tone, category expectations, buyer desire, visual mood, and best cover positioning.\n\nThe entire look of the cover must be custom-fit to the offer information, not generic. The actual imagery, tone, typography feel, visual symbolism, hierarchy, accent details, and overall theme must match the offer context.\n\nDo not invent product features, modules, bonuses, claims, statistics, testimonials, logos, certification seals, brand names, or extra cover text that was not provided.\n\nDesign style to use:\nAnalyze the offer information provided earlier in this chat and choose the strongest professional design direction for this exact offer. Base the design choice on the offer's audience, promise, tone, price impression, niche expectations, and emotional hook. Do not use a random style. Choose a cover direction that makes the product feel clear, desirable, credible, polished, and ready to sell.\n\nProduct-match rule:\nDo not create a generic cover. Make the cover feel specifically designed for this exact offer based on the offer information provided earlier in the chat. The visual theme, imagery, accent details, mood, typography personality, and layout should all feel naturally connected to the offer's market, promise, buyer, and emotional hook. Avoid generic stock-looking art, random decorative graphics, unrelated symbols, vague tech visuals, one-size-fits-all design choices, or designs that look like the title was simply swapped into a template.\n\nColor direction for the cover design:\nChoose the strongest color direction based on the product context. The cover colors must support the offer's promise, buyer desire, niche expectations, emotional hook, and perceived value. The final image background outside the product must remain pure white unless transparent background was selected.\n\nMockup direction rule:\nUse the selected mockup direction: Left Facing. Left Facing means the front cover or front panel faces slightly toward the viewer's right, with the left-side spine, page edge, side panel, or card edge visible. This direction rule changes only the viewing angle. Do not change the product type, shape, thickness, proportions, cover format, lighting, or background.\n\nCover strength rule:\nThe cover design must look like a finished premium product that could stop a buyer mid-scroll. Push the design harder with bold title hierarchy, dramatic contrast, rich depth, sharper visual energy, stronger focal point, and a clear custom concept tied to the offer. Make it feel striking, expensive, modern, and commercially powerful while staying clean, readable, and professional.\n\nBold dramatic design rule:\nDo not settle for safe, flat, plain, timid, lightly decorated, or template-style design. Use large confident typography, high-impact spacing, strong contrast, dynamic composition, premium accents, and product-specific imagery that makes the cover feel instantly valuable. The result should feel bold, vibrant, creative, and visually memorable without becoming cluttered, cheesy, childish, or hard to read.\n\nVisible side title rule:\nIf the selected product format has a visible spine, fold, edge, or side panel, place the product title clearly and cleanly on that visible side. Do not leave the visible side blank. For softback books, hardback books, reports, booklets, and software boxes, the title should appear on the visible side or spine when logically visible. For spiral workbooks, do not place the product title on the spine, coil binding, side edge, or page-edge area. Keep all product title text on the front cover only. For membership cards, do not force a fake spine or fake side title.\n\nShape consistency rule:\nThe selected ecover type controls the physical shape. Do not reinterpret, redesign, expand, combine, or replace that shape. Do not add companion products, duplicate covers, bonus stacks, extra books, extra cards, devices, packaging, props, hands, people, scenes, shelves, rooms, desks, floating icons, or background objects. Only create one clean mockup in the exact selected product format.\n\nText accuracy rule:\nUse only the exact product title, subtitle instructions, and author or brand name provided above.\n\nIf the subtitle field was filled in, use that exact subtitle.\n\nIf no subtitle was provided, create a short benefit-driven subtitle from the offer information, copy, description, or uploaded PDF context and place the actual generated subtitle on the cover. Do not place the subtitle instruction text on the cover.\n\nIf a word does not fit cleanly, simplify the layout instead of inventing extra words.\n\nDo not add fake taglines, labels, badges, seals, feature names, menu items, chapters, testimonials, or random text. Avoid gibberish, misspellings, distorted letters, unreadable microtext, or random filler copy.\n\nWhite background rule:\nPlace the finished ecover mockup on a clean pure white studio background. Use realistic soft shadows under and behind the product, but do not add scenery, rooms, desks, gradients, props, patterns, textures, dark backgrounds, colored backgrounds, or environmental objects. The background outside the product must stay pure white so the mockup looks clean, reusable, and ready for sales pages, product thumbnails, ads, and marketplace listings.\n\nProfessional design rule:\nMake the final ecover look like a premium digital product brand asset, not a basic AI image. The cover must be polished, bold, dramatic, clear, product-specific, and sales-page ready. It should feel custom to the offer, strongly connected to the topic, promise, audience, and emotional hook, and powerful enough to make someone pause, click, and take the product seriously. Avoid cluttered, childish, generic, cheap-looking, unrelated, timid, flat, boring, or amateur visual choices.\n\nFinal hard check before generating:\nConfirm silently that the image contains exactly one selected ecover mockup, the correct locked shape, the exact provided cover text, a premium, bold, dramatic, product-matched visual theme, the product title on any logical visible spine or side panel except spiral workbooks, where the title stays on the front cover only, the exact provided subtitle if one was entered or a generated subtitle that matches the offer context if no subtitle was entered, no invented claims, no extra objects, and a pure white background.";
+        const prompt2Template = "আমার কাছে কোনও visual reference নেই";
+        const prompt3Template = "অনুগ্রহ করে Content-এর জন্য তৈরি করা আগের ecover Image-টিকে visual reference হিসেবে নিয়ে 16:9 landscape product banner image তৈরি করে দাও।";
+
+        function updatePrompts() {
+            const productTitle = document.getElementById('productTitle').value;
+            const subtitle = document.getElementById('subtitle').value;
+
+            document.getElementById('promptOutput1').value = prompt1Template
+                .replaceAll('[Product Title]', productTitle)
+                .replaceAll('[Subtitle]', subtitle);
+
+            document.getElementById('promptOutput2').value = prompt2Template;
+            document.getElementById('promptOutput3').value = prompt3Template;
+        }
+
+        async function copyPrompt(id, btn) {
+            const outputBox = document.getElementById(id);
+
+            try {
+                await navigator.clipboard.writeText(outputBox.value);
+            } catch (err) {
+                outputBox.select();
+                outputBox.setSelectionRange(0, 99999);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+            }
+
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            btn.classList.add('copied');
+
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+
+        window.onload = updatePrompts;
+    </script>
+</body>
+</html>
